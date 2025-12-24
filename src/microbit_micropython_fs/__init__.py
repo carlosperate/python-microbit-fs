@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 microbit-micropython-fs: Inject and extract files from MicroPython Intel Hex files.
 

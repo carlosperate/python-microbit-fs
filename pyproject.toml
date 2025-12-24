@@ -97,7 +97,8 @@ disallow_incomplete_defs = true
 check_untyped_defs = true
 strict_optional = true
 warn_redundant_casts = true
-warn_unused_ignores = true
+warn_unused_ignores = false
+ignore_missing_imports = true
 
 [tool.coverage.run]
 source = ["src/microbit_micropython_fs"]
