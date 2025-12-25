@@ -3,6 +3,7 @@
 
 from dataclasses import dataclass
 from enum import Enum
+from typing import Any
 
 
 class DeviceVersion(Enum):
@@ -88,3 +89,33 @@ class DeviceInfo:
         """Total filesystem size in bytes."""
         # One page is used as scratch, so exclude it from the size
         return self.fs_end_address - self.fs_start_address - self.flash_page_size
+
+
+def get_device_info_ih(ih: Any) -> DeviceInfo:
+    """
+    Internal function to get device info from an already-loaded IntelHex.
+
+    :param ih: IntelHex object.
+    :returns: DeviceInfo containing memory layout information.
+
+    :raises NotMicroPythonError: If the hex does not contain MicroPython.
+    """
+    # Delayed imports to avoid circular dependency
+    from microbit_micropython_fs.flash_regions import get_device_info_from_flash_regions
+    from microbit_micropython_fs.uicr import get_device_info_from_uicr
+    from microbit_micropython_fs.exceptions import NotMicroPythonError
+
+    # First try Flash Regions Table detection, as it's more likely to be a V2
+    device_info = get_device_info_from_flash_regions(ih)
+    if device_info is not None:
+        return device_info
+
+    # Try UICR detection next (works for V1 and pre-release V2)
+    device_info = get_device_info_from_uicr(ih)
+    if device_info is not None:
+        return device_info
+
+    raise NotMicroPythonError(
+        "Could not detect MicroPython in hex file. "
+        "The hex file may not contain MicroPython or may be corrupted."
+    )

@@ -6,16 +6,17 @@ This module provides the main functions for working with micro:bit MicroPython
 filesystems in Intel Hex files.
 """
 
-from typing import Any
+from io import StringIO
 
-from microbit_micropython_fs.device_info import DeviceInfo
-from microbit_micropython_fs.exceptions import InvalidHexError, NotMicroPythonError
+from microbit_micropython_fs.device_info import DeviceInfo, get_device_info_ih
+from microbit_micropython_fs.exceptions import InvalidHexError
 from microbit_micropython_fs.file import File
-from microbit_micropython_fs.flash_regions import get_device_info_from_flash_regions
-from microbit_micropython_fs.fs_reader import read_files_from_hex
-from microbit_micropython_fs.fs_writer import create_hex_with_files
+from microbit_micropython_fs.filesystem import (
+    add_files_to_hex,
+    read_files_from_hex,
+)
 from microbit_micropython_fs.hex_utils import load_hex
-from microbit_micropython_fs.uicr import get_device_info_from_uicr
+
 
 
 def add_files(
@@ -47,8 +48,15 @@ def add_files(
         ih = load_hex(hex_data)
     except Exception as e:
         raise InvalidHexError(f"Failed to parse Intel Hex data: {e}") from e
-    device_info = _get_device_info_from_hex(ih)
-    return create_hex_with_files(ih, device_info, files)
+    device_info = get_device_info_ih(ih)
+
+    # Convert list[File] to dict[str, bytes] for filesystem module
+    files_dict = {f.name: f.content for f in files}
+    add_files_to_hex(ih, device_info, files_dict)
+
+    result = StringIO()
+    ih.write_hex_file(result)
+    return result.getvalue()
 
 
 def get_files(hex_data: str) -> list[File]:
@@ -76,33 +84,10 @@ def get_files(hex_data: str) -> list[File]:
         ih = load_hex(hex_data)
     except Exception as e:
         raise InvalidHexError(f"Failed to parse Intel Hex data: {e}") from e
-    device_info = _get_device_info_from_hex(ih)
-    return read_files_from_hex(ih, device_info)
-
-
-def _get_device_info_from_hex(ih: Any) -> DeviceInfo:
-    """
-    Internal function to get device info from an already-loaded IntelHex.
-
-    :param ih: IntelHex object.
-    :returns: DeviceInfo containing memory layout information.
-
-    :raises NotMicroPythonError: If the hex does not contain MicroPython.
-    """
-    # First try Flash Regions Table detection, as it's more likely to be a V2
-    device_info = get_device_info_from_flash_regions(ih)
-    if device_info is not None:
-        return device_info
-
-    # Try UICR detection next (works for V1 and pre-release V2)
-    device_info = get_device_info_from_uicr(ih)
-    if device_info is not None:
-        return device_info
-
-    raise NotMicroPythonError(
-        "Could not detect MicroPython in hex file. "
-        "The hex file may not contain MicroPython or may be corrupted."
-    )
+    device_info = get_device_info_ih(ih)
+    files_dict = read_files_from_hex(ih, device_info)
+    # Convert dict[str, bytes] to list[File]
+    return [File(name=name, content=content) for name, content in files_dict.items()]
 
 
 def get_device_info(hex_data: str) -> DeviceInfo:
@@ -129,4 +114,4 @@ def get_device_info(hex_data: str) -> DeviceInfo:
         ih = load_hex(hex_data)
     except Exception as e:
         raise InvalidHexError(f"Failed to parse Intel Hex data: {e}") from e
-    return _get_device_info_from_hex(ih)
+    return get_device_info_ih(ih)
