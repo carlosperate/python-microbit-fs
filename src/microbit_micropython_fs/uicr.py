@@ -12,6 +12,7 @@ specific data including:
 For more info:
 https://microbit-micropython.readthedocs.io/en/latest/devguide/hexformat.html
 """
+from __future__ import annotations
 
 from intelhex import IntelHex
 

@@ -92,13 +92,17 @@ uv sync --all-extras
 
 ### Development Commands
 
+This project includes a `make.py` script to automate common development tasks.
+
 ```bash
-uv run pytest
-uv run pytest --cov
-uv run black src tests
-uv run ruff check src tests
-uv run ruff check --fix src tests
-uv run mypy src
+# Run all checks (lint, typecheck, test)
+python make.py check
+# Run tests
+python make.py test
+# Format code (black + ruff fix)
+python make.py format
+# Build package
+python make.py build
 ```
 
 ## License
@@ -107,4 +111,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Related Projects
 
-- [microbit-fs](https://github.com/microbit-foundation/microbit-fs) - Original TypeScript library
+This project has been ported (AI assisted) from the original
+[microbit-fs](https://github.com/microbit-foundation/microbit-fs)
+TypeScript library.

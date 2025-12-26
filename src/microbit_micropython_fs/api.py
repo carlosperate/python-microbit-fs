@@ -6,7 +6,6 @@ This module provides the main functions for working with micro:bit MicroPython
 filesystems in Intel Hex files.
 """
 
-
 from microbit_micropython_fs.device_info import DeviceInfo, get_device_info_ih
 from microbit_micropython_fs.exceptions import InvalidFileError, InvalidHexError
 from microbit_micropython_fs.file import File

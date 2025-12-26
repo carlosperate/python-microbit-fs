@@ -21,6 +21,8 @@ More information:
 https://github.com/microbit-foundation/micropython-microbit-v2/blob/v2.0.0-beta.3/src/addlayouttable.py
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 
 from intelhex import IntelHex

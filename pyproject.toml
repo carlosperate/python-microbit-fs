@@ -5,17 +5,19 @@ description = "A Python library to add and extract files from MicroPython Intel 
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Carlos Pereira Atencio" }]
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 keywords = ["microbit", "micropython", "filesystem", "intel-hex", "embedded"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Embedded Systems",
     "Topic :: System :: Filesystems",
 ]
@@ -30,6 +32,8 @@ dev = [
     "ruff>=0.8.0",
     "pytest>=8.0.0",
     "pytest-cov>=4.0.0",
+    "pytest-xdist>=3.0.0",
+    "pytest-sugar>=1.0.0",
     "mypy>=1.0.0",
 ]
 
@@ -86,7 +90,7 @@ known-first-party = ["microbit_micropython_fs"]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
-addopts = "-v --tb=short"
+addopts = "--tb=short"
 
 [tool.mypy]
 python_version = "3.10"
