@@ -18,6 +18,18 @@ def load_hex(hex_data: str) -> IntelHex:
     return ih
 
 
+def hex_to_string(ih: IntelHex) -> str:
+    """
+    Convert an IntelHex object back to a hex string.
+
+    :param ih: IntelHex object.
+    :returns: Intel Hex file content as a string.
+    """
+    output = StringIO()
+    ih.write_hex_file(output)
+    return output.getvalue()
+
+
 def read_uint8(ih: IntelHex, address: int) -> int:
     """
     Read an unsigned 8-bit integer from the hex data.

@@ -6,17 +6,15 @@ This module provides the main functions for working with micro:bit MicroPython
 filesystems in Intel Hex files.
 """
 
-from io import StringIO
 
 from microbit_micropython_fs.device_info import DeviceInfo, get_device_info_ih
-from microbit_micropython_fs.exceptions import InvalidHexError
+from microbit_micropython_fs.exceptions import InvalidFileError, InvalidHexError
 from microbit_micropython_fs.file import File
 from microbit_micropython_fs.filesystem import (
     add_files_to_hex,
     read_files_from_hex,
 )
-from microbit_micropython_fs.hex_utils import load_hex
-
+from microbit_micropython_fs.hex_utils import hex_to_string, load_hex
 
 
 def add_files(
@@ -50,13 +48,14 @@ def add_files(
         raise InvalidHexError(f"Failed to parse Intel Hex data: {e}") from e
     device_info = get_device_info_ih(ih)
 
-    # Convert list[File] to dict[str, bytes] for filesystem module
-    files_dict = {f.name: f.content for f in files}
+    files_dict = {}
+    for file in files:
+        if file.name in files_dict:
+            raise InvalidFileError(f"Duplicate file name: {file.name}")
+        files_dict[file.name] = file.content
     add_files_to_hex(ih, device_info, files_dict)
 
-    result = StringIO()
-    ih.write_hex_file(result)
-    return result.getvalue()
+    return hex_to_string(ih)
 
 
 def get_files(hex_data: str) -> list[File]:
@@ -86,7 +85,6 @@ def get_files(hex_data: str) -> list[File]:
         raise InvalidHexError(f"Failed to parse Intel Hex data: {e}") from e
     device_info = get_device_info_ih(ih)
     files_dict = read_files_from_hex(ih, device_info)
-    # Convert dict[str, bytes] to list[File]
     return [File(name=name, content=content) for name, content in files_dict.items()]
 
 

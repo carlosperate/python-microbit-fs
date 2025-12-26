@@ -101,9 +101,9 @@ def get_device_info_ih(ih: Any) -> DeviceInfo:
     :raises NotMicroPythonError: If the hex does not contain MicroPython.
     """
     # Delayed imports to avoid circular dependency
+    from microbit_micropython_fs.exceptions import NotMicroPythonError
     from microbit_micropython_fs.flash_regions import get_device_info_from_flash_regions
     from microbit_micropython_fs.uicr import get_device_info_from_uicr
-    from microbit_micropython_fs.exceptions import NotMicroPythonError
 
     # First try Flash Regions Table detection, as it's more likely to be a V2
     device_info = get_device_info_from_flash_regions(ih)
