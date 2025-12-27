@@ -513,6 +513,8 @@ dependencies = [
 dev = [
     { name = "black", version = "25.11.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "black", version = "25.12.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "mini-racer", version = "0.12.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "mini-racer", version = "0.13.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "mypy" },
     { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "pytest", version = "9.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
@@ -526,6 +528,7 @@ dev = [
 requires-dist = [
     { name = "black", marker = "extra == 'dev'", specifier = ">=24.0.0" },
     { name = "intelhex", specifier = ">=2.3.0" },
+    { name = "mini-racer", marker = "extra == 'dev'", specifier = ">=0.12.4" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0.0" },
@@ -534,6 +537,43 @@ requires-dist = [
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8.0" },
 ]
 provides-extras = ["dev"]
+
+[[package]]
+name = "mini-racer"
+version = "0.12.4"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.10'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8c/2d/e051f58e17117b1b8b11a7d17622c1528fa9002c553943c6b677c1b412da/mini_racer-0.12.4.tar.gz", hash = "sha256:84c67553ce9f3736d4c617d8a3f882949d37a46cfb47fe11dab33dd6704e62a4", size = 447529, upload-time = "2024-06-20T14:44:39.992Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/71/fe/1452b6c74cae9e8cd7b6a16d8b1ef08bba4dd0ed373a95f3b401c2e712ea/mini_racer-0.12.4-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:bce8a3cee946575a352f5e65335903bc148da42c036d0c738ac67e931600e455", size = 15701219, upload-time = "2024-06-20T14:44:21.96Z" },
+    { url = "https://files.pythonhosted.org/packages/99/ae/c22478eff26e6136341e6b40d34f8d285f910ca4d2e2a0ca4703ef87be79/mini_racer-0.12.4-py3-none-macosx_11_0_arm64.whl", hash = "sha256:56c832e6ac2db6a304d1e8e80030615297aafbc6940f64f3479af4ba16abccd5", size = 14566436, upload-time = "2024-06-20T14:44:24.496Z" },
+    { url = "https://files.pythonhosted.org/packages/44/89/f062aa116b14fcace91f0af86a37605f0ba7c07a01c8101b5ea104d489b1/mini_racer-0.12.4-py3-none-manylinux_2_31_aarch64.whl", hash = "sha256:b82c4bd2976e280ed0a72c9c2de01b13f18ccfbe6f4892cbc22aae04410fac3c", size = 14931664, upload-time = "2024-06-20T14:44:27.385Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/a1/09122c88a0dd0a2141b0ea068d70f5d31acd0015d6f3157b8efd3ff7e026/mini_racer-0.12.4-py3-none-manylinux_2_31_x86_64.whl", hash = "sha256:69a1c44d02a9069b881684cef15a2d747fe0743df29eadc881fda7002aae5fd2", size = 14955238, upload-time = "2024-06-20T14:44:30.217Z" },
+    { url = "https://files.pythonhosted.org/packages/6c/3b/826e41f92631560e5c6ca2aa4ef9005bdccf9290c1e7ddebe05e0a3b8c7c/mini_racer-0.12.4-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:499dbc267dfe60e954bc1b6c3787f7b10fc41fe1975853c9a6ddb55eb83dc4d9", size = 15211136, upload-time = "2024-06-20T14:44:33.509Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/37/15b30316630d1f63b025f058dc92efa75931a37315c34ca07f80be2cc405/mini_racer-0.12.4-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:231f949f5787d18351939f1fe59e5a6fe134bccb5ecf8f836b9beab69d91c8d9", size = 15128684, upload-time = "2024-06-20T14:44:35.644Z" },
+    { url = "https://files.pythonhosted.org/packages/5c/0e/a9943f90b4a8a6d3849b81a00a00d2db128d876365385af382a0e2caf191/mini_racer-0.12.4-py3-none-win_amd64.whl", hash = "sha256:9446e3bd6a4eb9fbedf1861326f7476080995a31c9b69308acef17e5b7ecaa1b", size = 13674040, upload-time = "2024-06-20T14:44:37.851Z" },
+]
+
+[[package]]
+name = "mini-racer"
+version = "0.13.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.10'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ae/85/d707529da20588b807833b80060fbb928b684c104ac298a79bc93869e73a/mini_racer-0.13.2.tar.gz", hash = "sha256:b93b28d74008f4ce084292a9c3b2057283ceaa3057c1aef71cb3f86874c0c6d7", size = 38321, upload-time = "2025-12-26T04:02:14.126Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cb/c5/75c1a033b906a58a7a1e4043af71f9921b6ba76efb77a538863c6893e903/mini_racer-0.13.2-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:5406a7b8c691c3b722cccefb59fbf811b5fa9fb6a746e74ddae6801b181c4bcb", size = 19847051, upload-time = "2025-12-26T04:01:51.536Z" },
+    { url = "https://files.pythonhosted.org/packages/36/57/05cd0e06facd26c515c2d1b8fd2d8906fac8c7a595b50dfebf13ff7ed45e/mini_racer-0.13.2-py3-none-macosx_11_0_arm64.whl", hash = "sha256:783c3e7e54eb8152c7569f67f7b30699213ef79e0ac0421f50576b76c28205a0", size = 18397136, upload-time = "2025-12-26T04:01:54.593Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/d4/5acce55b384885fa59e4d32b529dd63f4a57626817456a1f306600a4ca8c/mini_racer-0.13.2-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:8d1ae353e4bcb73d4db1d6cfd925b5a96022da0334ca742bcae1aec8dfa93f7c", size = 21754303, upload-time = "2025-12-26T04:01:57.594Z" },
+    { url = "https://files.pythonhosted.org/packages/14/73/ad693527a0e0241a978db8c863ef6859033b02398c73f43afd7fd2d02bfe/mini_racer-0.13.2-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:401727613d964d33f7a75ec772b69975d491278a15ffd175089cb44ef8551a7f", size = 22022166, upload-time = "2025-12-26T04:02:00.76Z" },
+    { url = "https://files.pythonhosted.org/packages/88/51/6b39bdbe9ec507d27ffc5216ba2b9ea1d74003a7f3ddc09d57743f91ddb7/mini_racer-0.13.2-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:c064a0e3fdbc4a9c6a744ceb5654e7e6088e6b5df70bf2a07f371d56d3d54ab5", size = 21670888, upload-time = "2025-12-26T04:02:03.892Z" },
+    { url = "https://files.pythonhosted.org/packages/71/27/a2847bdef09ee88416ecab0791f21588e0c18c799c180fcc42e58c76abe6/mini_racer-0.13.2-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:f5818d054540a3369dc1847c8c5a8f7b065b1c35580a8ca993ce088416812b67", size = 22022167, upload-time = "2025-12-26T04:02:06.741Z" },
+    { url = "https://files.pythonhosted.org/packages/01/50/d660c0849d5e34a0b2f72bc62a5ac444f0b041628a5973a1690107f1d73a/mini_racer-0.13.2-py3-none-win_amd64.whl", hash = "sha256:05756630726421d9248dcbc13e75abde687c113a033ea9ea39957a912d371c32", size = 15474275, upload-time = "2025-12-26T04:02:09.22Z" },
+    { url = "https://files.pythonhosted.org/packages/e9/7f/870d6cbf3ed3d20959cb4082075559ade81320dd3da6504f01cc2fcd8878/mini_racer-0.13.2-py3-none-win_arm64.whl", hash = "sha256:ae8bd2f31aa2df96581122e03aa5bad4dbae92d0f9e97a2e54888f0248e2432e", size = 14795654, upload-time = "2025-12-26T04:02:12.265Z" },
+]
 
 [[package]]
 name = "mypy"

@@ -97,12 +97,12 @@ This project includes a `make.py` script to automate common development tasks.
 ```bash
 # Run all checks (lint, typecheck, test)
 python make.py check
-# Run tests
-python make.py test
 # Format code (black + ruff fix)
 python make.py format
 # Build package
 python make.py build
+# Check commands
+python make.py help
 ```
 
 ## License
