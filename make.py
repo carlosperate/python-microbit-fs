@@ -5,6 +5,7 @@ Usage: python make.py <command>
 
 This replaces a Makefile with a cross-platform Python script.
 """
+
 import shutil
 import subprocess
 import sys
@@ -13,6 +14,13 @@ from pathlib import Path
 
 # Project root directory (where this script lives)
 ROOT = Path(__file__).parent.resolve()
+
+PATHS_TO_CHECK = [
+    ROOT / "src",
+    ROOT / "tests",
+    ROOT / "make.py",
+]
+CHECK_PATHS = [str(p.relative_to(Path.cwd())) for p in PATHS_TO_CHECK]
 
 # Command registry
 COMMANDS: dict[str, Callable[[], None]] = {}
@@ -37,8 +45,8 @@ def run(cmd: list[str], check: bool = True) -> int:
 def clean() -> None:
     """Remove build artifacts and caches."""
     dirs_to_remove = [
-        ".pytest_cache",
         ".mypy_cache",
+        ".pytest_cache",
         ".ruff_cache",
         "build",
         "dist",
@@ -68,27 +76,27 @@ def clean() -> None:
 @command
 def lint() -> None:
     """Run ruff linter."""
-    run(["uv", "run", "ruff", "check", "src", "tests"])
+    run(["uv", "run", "ruff", "check"] + CHECK_PATHS)
 
 
 @command
 def format() -> None:
-    """Run code formatters (ruff + black)."""
-    run(["uv", "run", "ruff", "check", "--fix", "src", "tests"])
-    run(["uv", "run", "black", "src", "tests"])
+    """Run code formatters (ruff)."""
+    run(["uv", "run", "ruff", "check", "--fix"] + CHECK_PATHS)
+    run(["uv", "run", "ruff", "format"] + CHECK_PATHS)
 
 
 @command
 def format_check() -> None:
     """Check code formatting without making changes."""
-    run(["uv", "run", "ruff", "check", "src", "tests"])
-    run(["uv", "run", "black", "--check", "--diff", "src", "tests"])
+    run(["uv", "run", "ruff", "check"] + CHECK_PATHS)
+    run(["uv", "run", "ruff", "format", "--check", "--diff"] + CHECK_PATHS)
 
 
 @command
 def typecheck() -> None:
     """Run mypy type checker."""
-    run(["uv", "run", "mypy", "src", "tests"])
+    run(["uv", "run", "mypy"] + CHECK_PATHS)
 
 
 @command
@@ -118,6 +126,7 @@ def check() -> None:
     """Run all checks (lint, typecheck, test)."""
     lint()
     typecheck()
+    format_check()
     test_cov()
 
 

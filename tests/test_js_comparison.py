@@ -107,15 +107,15 @@ def run_all_checks(
 
     # Check 2: Add with Python, read with JS
     js_read_from_py = js_get_files(py_hex)
-    assert (
-        js_read_from_py == files_dict
-    ), f"JS reading from Python hex failed. Expected: {files_dict}, Got: {js_read_from_py}"
+    assert js_read_from_py == files_dict, (
+        f"JS reading from Python hex failed. Expected: {files_dict}, Got: {js_read_from_py}"
+    )
 
     # Check 3: Add with JS, read with Python
     py_read_from_js = py_get_files(js_hex)
-    assert (
-        py_read_from_js == files_dict
-    ), f"Python reading from JS hex failed. Expected: {files_dict}, Got: {py_read_from_js}"
+    assert py_read_from_js == files_dict, (
+        f"Python reading from JS hex failed. Expected: {files_dict}, Got: {py_read_from_js}"
+    )
 
 
 def calculate_max_content_for_single_file(filename: str, available_chunks: int) -> int:

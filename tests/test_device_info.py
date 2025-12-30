@@ -110,8 +110,7 @@ class TestGetDeviceInfoV2Uicr:
         """V2 UICR should have the correct MicroPython version string."""
         info = get_device_info(upy_v2_uicr_hex)
         expected_micropython_versions = (
-            "micro:bit v2.0.99+3e09245 on 2020-11-02; "
-            "MicroPython 3e09245 on 2020-11-02"
+            "micro:bit v2.0.99+3e09245 on 2020-11-02; MicroPython 3e09245 on 2020-11-02"
         )
         assert info.micropython_version == expected_micropython_versions
 
@@ -165,8 +164,7 @@ class TestGetDeviceInfoV2FlashRegions:
         """V2 Flash Regions should have the correct MicroPython version string."""
         info = get_device_info(upy_v2_region_hex)
         expected_micropython_versions = (
-            "micro:bit v2.0.99+b260810 on 2020-11-17; "
-            "MicroPython b260810 on 2020-11-17"
+            "micro:bit v2.0.99+b260810 on 2020-11-17; MicroPython b260810 on 2020-11-17"
         )
         assert info.micropython_version == expected_micropython_versions
 
