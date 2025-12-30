@@ -6,7 +6,9 @@ Usage: python make.py <command>
 This replaces a Makefile with a cross-platform Python script.
 """
 
+import platform
 import shutil
+import site
 import subprocess
 import sys
 from collections.abc import Callable
@@ -35,6 +37,20 @@ def command(func: Callable[[], None]) -> Callable[[], None]:
 def run(cmd: list[str], check: bool = True) -> int:
     """Run a command and return the exit code."""
     print("\n" + "=" * 80 + f"\n$ {' '.join(cmd)}\n" + "-" * 80)
+    result = subprocess.run(cmd, cwd=ROOT)
+    if check and result.returncode != 0:
+        sys.exit(result.returncode)
+    return result.returncode
+
+
+def run_module(module: str, args: list[str], check: bool = True) -> int:
+    """Run a Python module as a script and return the exit code."""
+    cmd = [sys.executable, "-m", module] + args
+    cmd_printable = [str(part) for part in cmd]
+    cmd_printable[0] = Path(
+        cmd_printable[0]
+    ).name  # Just show 'python' instead of full path
+    print("\n" + "=" * 80 + f"\n$ {' '.join(cmd_printable)}\n" + "-" * 80)
     result = subprocess.run(cmd, cwd=ROOT)
     if check and result.returncode != 0:
         sys.exit(result.returncode)
@@ -76,54 +92,55 @@ def clean() -> None:
 @command
 def lint() -> None:
     """Run ruff linter."""
-    run(["uv", "run", "ruff", "check"] + CHECK_PATHS)
+    run_module("ruff", ["check"] + CHECK_PATHS)
 
 
 @command
 def format() -> None:
     """Run code formatters (ruff)."""
-    run(["uv", "run", "ruff", "check", "--fix"] + CHECK_PATHS)
-    run(["uv", "run", "ruff", "format"] + CHECK_PATHS)
+    run_module("ruff", ["check", "--fix"] + CHECK_PATHS)
+    run_module("ruff", ["format"] + CHECK_PATHS)
 
 
 @command
 def format_check() -> None:
     """Check code formatting without making changes."""
-    run(["uv", "run", "ruff", "check"] + CHECK_PATHS)
-    run(["uv", "run", "ruff", "format", "--check", "--diff"] + CHECK_PATHS)
+    run_module("ruff", ["check"] + CHECK_PATHS)
+    run_module("ruff", ["format", "--check", "--diff"] + CHECK_PATHS)
 
 
 @command
 def typecheck() -> None:
     """Run mypy type checker."""
-    run(["uv", "run", "mypy"] + CHECK_PATHS)
+    run_module("mypy", CHECK_PATHS)
 
 
 @command
 def test() -> None:
     """Run tests with pytest."""
-    run(["uv", "run", "pytest", "-n", "auto"])
+    run_module("pytest", ["-n", "auto"])
 
 
 @command
 def test_cov() -> None:
     """Run tests with coverage report."""
-    run(
+    run_module(
+        "pytest",
         [
-            "uv",
-            "run",
-            "pytest",
             "-n",
             "auto",
             "--cov=src",
             "--cov-report=term-missing",
-        ]
+        ],
     )
 
 
 @command
 def check() -> None:
     """Run all checks (lint, typecheck, test)."""
+    # Information about the environment
+    print(f"Python {platform.python_version()}: {sys.executable}")
+    print(f"Site-packages: {site.getsitepackages()}")
     lint()
     typecheck()
     format_check()

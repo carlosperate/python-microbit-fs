@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+import microbit_micropython_fs as upyfs
 from microbit_micropython_fs.cli import app
 
 
@@ -17,7 +18,10 @@ class TestInfoCommand:
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v1_hex)
 
-        app(["info", str(hex_file)])
+        try:
+            app(["info", str(hex_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Device: micro:bit V1" in captured.out
@@ -34,7 +38,10 @@ class TestInfoCommand:
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v2_region_hex)
 
-        app(["info", str(hex_file)])
+        try:
+            app(["info", str(hex_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Device: micro:bit V2" in captured.out
@@ -50,7 +57,10 @@ class TestListCommand:
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v1_hex)
 
-        app(["list", str(hex_file)])
+        try:
+            app(["list", str(hex_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "No files found" in captured.out
@@ -59,9 +69,6 @@ class TestListCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """List command should show files in the filesystem."""
-        import microbit_micropython_fs as upyfs
-
-        # Add files to hex
         files = [
             upyfs.File.from_text("main.py", "print('hello')"),
             upyfs.File.from_text("helper.py", "def foo(): pass"),
@@ -71,7 +78,10 @@ class TestListCommand:
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(new_hex)
 
-        app(["list", str(hex_file)])
+        try:
+            app(["list", str(hex_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "main.py" in captured.out
@@ -89,7 +99,10 @@ class TestExtractCommand:
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v1_hex)
 
-        app(["get", str(hex_file)])
+        try:
+            app(["get", str(hex_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "No files found" in captured.out
@@ -98,9 +111,6 @@ class TestExtractCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """Get command should extract all files to output directory."""
-        import microbit_micropython_fs as upyfs
-
-        # Add files to hex
         files = [
             upyfs.File.from_text("main.py", "print('hello')"),
             upyfs.File.from_text("data.txt", "some data"),
@@ -111,7 +121,10 @@ class TestExtractCommand:
         hex_file.write_text(new_hex)
         output_dir = tmp_path / "output"
 
-        app(["get", str(hex_file), "--output-dir", str(output_dir)])
+        try:
+            app(["get", str(hex_file), "--output-dir", str(output_dir)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Extracted: main.py" in captured.out
@@ -123,9 +136,6 @@ class TestExtractCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """Get command should extract only the specified file."""
-        import microbit_micropython_fs as upyfs
-
-        # Add files to hex
         files = [
             upyfs.File.from_text("main.py", "print('hello')"),
             upyfs.File.from_text("other.py", "print('other')"),
@@ -136,16 +146,19 @@ class TestExtractCommand:
         hex_file.write_text(new_hex)
         output_dir = tmp_path / "output"
 
-        app(
-            [
-                "get",
-                str(hex_file),
-                "--output-dir",
-                str(output_dir),
-                "--filename",
-                "main.py",
-            ]
-        )
+        try:
+            app(
+                [
+                    "get",
+                    str(hex_file),
+                    "--output-dir",
+                    str(output_dir),
+                    "--filename",
+                    "main.py",
+                ]
+            )
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Extracted: main.py" in captured.out
@@ -155,9 +168,6 @@ class TestExtractCommand:
 
     def test_extract_nonexistent_file(self, upy_v1_hex: str, tmp_path: Path) -> None:
         """Get command should error when specific file is not found."""
-        import microbit_micropython_fs as upyfs
-
-        # Add files to hex
         files = [upyfs.File.from_text("main.py", "print('hello')")]
         new_hex = upyfs.add_files(upy_v1_hex, files)
 
@@ -173,9 +183,6 @@ class TestExtractCommand:
         self, upy_v1_hex: str, tmp_path: Path
     ) -> None:
         """Get command should fail if output file already exists."""
-        import microbit_micropython_fs as upyfs
-
-        # Add files to hex
         files = [upyfs.File.from_text("main.py", "print('hello')")]
         new_hex = upyfs.add_files(upy_v1_hex, files)
 
@@ -198,9 +205,6 @@ class TestExtractCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """Get command with --force should overwrite existing files."""
-        import microbit_micropython_fs as upyfs
-
-        # Add files to hex
         files = [upyfs.File.from_text("main.py", "print('new content')")]
         new_hex = upyfs.add_files(upy_v1_hex, files)
 
@@ -211,7 +215,10 @@ class TestExtractCommand:
         existing_file = tmp_path / "main.py"
         existing_file.write_text("existing content")
 
-        app(["get", str(hex_file), "--output-dir", str(tmp_path), "--force"])
+        try:
+            app(["get", str(hex_file), "--output-dir", str(tmp_path), "--force"])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Extracted: main.py" in captured.out
@@ -226,8 +233,6 @@ class TestAddCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """Add command should add a single file to the hex."""
-        import microbit_micropython_fs as upyfs
-
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v1_hex)
 
@@ -236,7 +241,10 @@ class TestAddCommand:
 
         output_file = tmp_path / "output.hex"
 
-        app(["add", str(hex_file), str(source_file), "--output", str(output_file)])
+        try:
+            app(["add", str(hex_file), str(source_file), "--output", str(output_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Adding: main.py" in captured.out
@@ -253,8 +261,6 @@ class TestAddCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """Add command should add multiple files to the hex."""
-        import microbit_micropython_fs as upyfs
-
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v1_hex)
 
@@ -265,9 +271,19 @@ class TestAddCommand:
 
         output_file = tmp_path / "output.hex"
 
-        app(
-            ["add", str(hex_file), str(file1), str(file2), "--output", str(output_file)]
-        )
+        try:
+            app(
+                [
+                    "add",
+                    str(hex_file),
+                    str(file1),
+                    str(file2),
+                    "--output",
+                    str(output_file),
+                ]
+            )
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "Adding: main.py" in captured.out
@@ -284,15 +300,16 @@ class TestAddCommand:
         self, upy_v1_hex: str, tmp_path: Path, capsys: pytest.CaptureFixture[str]
     ) -> None:
         """Add command should create <name>_output.hex when no output specified."""
-        import microbit_micropython_fs as upyfs
-
         hex_file = tmp_path / "test.hex"
         hex_file.write_text(upy_v1_hex)
 
         source_file = tmp_path / "main.py"
         source_file.write_text("print('hello')")
 
-        app(["add", str(hex_file), str(source_file)])
+        try:
+            app(["add", str(hex_file), str(source_file)])
+        except SystemExit as e:
+            assert e.code == 0
 
         expected_output = tmp_path / "test_output.hex"
         captured = capsys.readouterr()
@@ -316,16 +333,20 @@ class TestVersionAndHelp:
 
     def test_version_flag(self, capsys: pytest.CaptureFixture[str]) -> None:
         """--version should display the version."""
-        import microbit_micropython_fs as upyfs
-
-        app(["--version"])
+        try:
+            app(["--version"])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert upyfs.__version__ in captured.out
 
     def test_help_flag(self, capsys: pytest.CaptureFixture[str]) -> None:
         """--help should display help information."""
-        app(["--help"])
+        try:
+            app(["--help"])
+        except SystemExit as e:
+            assert e.code == 0
 
         captured = capsys.readouterr()
         assert "info" in captured.out

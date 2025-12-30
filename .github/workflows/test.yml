@@ -33,4 +33,4 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run checks
-        run: python make.py check
+        run: uv run python make.py check
