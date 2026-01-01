@@ -52,11 +52,27 @@ microbit-fs list micropython_with_files.hex
 Add files to a hex file:
 
 ```bash
-# Add a single file (creates micropython_output.hex)
-microbit-fs add micropython.hex main.py
+# Add a single file using an existing MicroPython hex
+microbit-fs add main.py --hex-file micropython.hex
 
 # Add multiple files with a custom output file
-microbit-fs add micropython.hex main.py helper.py --output output.hex
+microbit-fs add main.py helper.py --hex-file micropython.hex --output output.hex
+
+# Use bundled micro:bit V1 MicroPython hex (latest version)
+microbit-fs add main.py --v1=latest
+
+# Use bundled micro:bit V2 MicroPython hex (latest version)
+microbit-fs add main.py --v2=latest --output my_program.hex
+
+# Use a specific MicroPython version
+microbit-fs add main.py --v1=1.1.1 --output output.hex
+microbit-fs add main.py --v2=2.1.2 --output output.hex
+```
+
+List available bundled MicroPython versions:
+
+```bash
+microbit-fs versions
 ```
 
 Extract files from a hex file:
@@ -132,6 +148,31 @@ print(f"Filesystem size: {info.fs_size} bytes")
 print(f"Flash page size: {info.flash_page_size} bytes")
 ```
 
+### Use bundled MicroPython hex files
+
+```python
+import microbit_micropython_fs as micropython
+
+# List available bundled versions (dict keyed by device)
+versions = micropython.list_bundled_versions()
+# {1: ['1.1.1'], 2: ['2.1.2']}
+v1_versions = versions[1]
+v2_versions = versions[2]
+
+# Get the latest bundled hex for micro:bit V1
+hex_data = micropython.get_bundled_hex(1)
+
+# Get a specific version
+hex_data = micropython.get_bundled_hex(2, "2.1.2")
+
+# Add files to the bundled hex
+files = [micropython.File.from_text("main.py", "from microbit import *")]
+new_hex = micropython.add_files(hex_data, files)
+
+with open("my_program.hex", "w") as f:
+    f.write(new_hex)
+```
+
 ## Development
 
 This project uses [uv](https://docs.astral.sh/uv/) for project management.
@@ -141,7 +182,7 @@ This project uses [uv](https://docs.astral.sh/uv/) for project management.
 ```bash
 git clone https://github.com/carlosperate/python-microbit-fs.git
 cd python-microbit-fs
-uv sync --all-extras
+uv sync --all-extras --dev
 ```
 
 ### Development Commands
@@ -150,13 +191,13 @@ This project includes a `make.py` script to automate common development tasks.
 
 ```bash
 # Run all checks (lint, typecheck, format check, test with coverage)
-python make.py check
+uv run python make.py check
 
 # Format code (ruff check --fix + ruff format)
-python make.py format
+uv run python make.py format
 
 # Show all available commands
-python make.py help
+uv run python make.py help
 ```
 
 ## License

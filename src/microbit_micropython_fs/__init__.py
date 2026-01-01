@@ -9,6 +9,8 @@ Main functions:
     - add_files: Add files to a MicroPython hex file
     - get_files: Read files from a MicroPython hex file
     - get_device_info: Get device memory information from a hex file
+    - get_bundled_hex: Get a bundled MicroPython hex file
+    - list_bundled_versions: List available bundled hex versions
 """
 
 from microbit_micropython_fs.api import (
@@ -19,12 +21,18 @@ from microbit_micropython_fs.api import (
 from microbit_micropython_fs.device_info import DeviceInfo, DeviceVersion
 from microbit_micropython_fs.exceptions import (
     FilesystemError,
+    HexNotFoundError,
     InvalidFileError,
     InvalidHexError,
     NotMicroPythonError,
     StorageFullError,
 )
 from microbit_micropython_fs.file import File
+from microbit_micropython_fs.hexes import (
+    MicroPythonHex,
+    get_bundled_hex,
+    list_bundled_versions,
+)
 
 __version__ = "0.1.0"
 
@@ -33,6 +41,10 @@ __all__ = [
     "add_files",
     "get_files",
     "get_device_info",
+    # Bundled hex functions
+    "MicroPythonHex",
+    "get_bundled_hex",
+    "list_bundled_versions",
     # Data classes
     "File",
     "DeviceInfo",
@@ -43,4 +55,5 @@ __all__ = [
     "NotMicroPythonError",
     "InvalidFileError",
     "StorageFullError",
+    "HexNotFoundError",
 ]

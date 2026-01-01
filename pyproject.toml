@@ -25,6 +25,7 @@ classifiers = [
 dependencies = [
     "cyclopts>=3.24.0",
     "intelhex>=2.3.0",
+    "packaging>=21.0",
 ]
 
 [project.optional-dependencies]

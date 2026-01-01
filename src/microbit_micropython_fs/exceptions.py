@@ -29,3 +29,9 @@ class StorageFullError(FilesystemError):
     """Raised when there is not enough space in the filesystem."""
 
     pass
+
+
+class HexNotFoundError(Exception):
+    """Raised when a requested hex file is not found."""
+
+    pass
