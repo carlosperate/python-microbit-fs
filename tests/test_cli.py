@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-import microbit_micropython_fs as upyfs
-from microbit_micropython_fs.cli import app
+import micropython_microbit_fs as upyfs
+from micropython_microbit_fs.cli import app
 
 
 class TestInfoCommand:

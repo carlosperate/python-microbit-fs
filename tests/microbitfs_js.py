@@ -5,7 +5,7 @@ from typing import Any
 
 from py_mini_racer import JSEvalException, MiniRacer
 
-from microbit_micropython_fs.exceptions import StorageFullError
+from micropython_microbit_fs.exceptions import StorageFullError
 
 TEST_DIR = Path(__file__).parent
 

@@ -17,8 +17,8 @@ from __future__ import annotations
 
 from intelhex import IntelHex
 
-from microbit_micropython_fs.device_info import DEVICE_SPECS, DeviceInfo
-from microbit_micropython_fs.hex_utils import (
+from micropython_microbit_fs.device_info import DEVICE_SPECS, DeviceInfo
+from micropython_microbit_fs.hex_utils import (
     read_string,
     read_uint16,
     read_uint32,

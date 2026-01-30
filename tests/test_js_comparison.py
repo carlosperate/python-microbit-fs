@@ -11,17 +11,17 @@ import pytest
 from intelhex import IntelHex
 from py_mini_racer import JSEvalException
 
-import microbit_micropython_fs
-from microbit_micropython_fs import File, StorageFullError
-from microbit_micropython_fs.device_info import get_device_info_ih
-from microbit_micropython_fs.filesystem import (
+import micropython_microbit_fs
+from micropython_microbit_fs import File, StorageFullError
+from micropython_microbit_fs.device_info import get_device_info_ih
+from micropython_microbit_fs.filesystem import (
     CHUNK_DATA_SIZE,
     CHUNK_SIZE,
     MAX_FILENAME_LENGTH,
     get_fs_start_address,
     get_last_page_address,
 )
-from microbit_micropython_fs.hex_utils import load_hex
+from micropython_microbit_fs.hex_utils import load_hex
 
 
 # =============================================================================
@@ -66,12 +66,12 @@ def generate_content(size: int) -> str:
 def py_add_files(hex_data: str, files_dict: dict[str, str]) -> str:
     """Add files using the Python library."""
     py_files = [File.from_text(name, content) for name, content in files_dict.items()]
-    return microbit_micropython_fs.add_files(hex_data, py_files)
+    return micropython_microbit_fs.add_files(hex_data, py_files)
 
 
 def py_get_files(hex_data: str) -> dict[str, str]:
     """Get files using the Python library, returning as a dict."""
-    files = microbit_micropython_fs.get_files(hex_data)
+    files = micropython_microbit_fs.get_files(hex_data)
     return {f.name: f.get_text() for f in files}
 
 
@@ -264,7 +264,7 @@ class TestFilenameLength:
         content = "test content"
 
         # Python should raise InvalidFileError during File creation
-        with pytest.raises(microbit_micropython_fs.InvalidFileError):
+        with pytest.raises(micropython_microbit_fs.InvalidFileError):
             File.from_text(filename, content)
 
         # JS should raise an exception

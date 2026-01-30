@@ -8,8 +8,8 @@ filesystem embedded in an Intel Hex file.
 
 from intelhex import IntelHex
 
-from microbit_micropython_fs.device_info import DeviceInfo, DeviceVersion
-from microbit_micropython_fs.exceptions import (
+from micropython_microbit_fs.device_info import DeviceInfo, DeviceVersion
+from micropython_microbit_fs.exceptions import (
     FilesystemError,
     InvalidFileError,
     StorageFullError,

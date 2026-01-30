@@ -2,8 +2,8 @@
 
 from dataclasses import dataclass
 
-from microbit_micropython_fs.exceptions import InvalidFileError
-from microbit_micropython_fs.filesystem import calculate_file_size
+from micropython_microbit_fs.exceptions import InvalidFileError
+from micropython_microbit_fs.filesystem import calculate_file_size
 
 
 @dataclass

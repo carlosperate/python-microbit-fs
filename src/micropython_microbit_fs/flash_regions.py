@@ -27,8 +27,8 @@ from dataclasses import dataclass
 
 from intelhex import IntelHex
 
-from microbit_micropython_fs import hex_utils as ihex
-from microbit_micropython_fs.device_info import DEVICE_SPECS, DeviceInfo, DeviceVersion
+from micropython_microbit_fs import hex_utils as ihex
+from micropython_microbit_fs.device_info import DEVICE_SPECS, DeviceInfo, DeviceVersion
 
 FLASH_REGIONS_MAGIC_1 = 0x597F30FE
 """First magic value for flash regions table."""

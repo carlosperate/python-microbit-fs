@@ -2,8 +2,8 @@
 
 import pytest
 
-import microbit_micropython_fs as upyfs
-from microbit_micropython_fs.hexes import (
+import micropython_microbit_fs as upyfs
+from micropython_microbit_fs.hexes import (
     HexNotFoundError,
     get_bundled_hex,
     list_bundled_versions,

@@ -2,13 +2,13 @@
 
 import pytest
 
-from microbit_micropython_fs import (
+from micropython_microbit_fs import (
     File,
     InvalidFileError,
     add_files,
     get_files,
 )
-from microbit_micropython_fs.hex_utils import hex_to_string, load_hex
+from micropython_microbit_fs.hex_utils import hex_to_string, load_hex
 
 
 class TestAddFilesBasic:

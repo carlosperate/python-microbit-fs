@@ -4,8 +4,8 @@ from io import StringIO
 
 from intelhex import IntelHex
 
-from microbit_micropython_fs import get_device_info, get_files
-from microbit_micropython_fs.filesystem import get_fs_start_address
+from micropython_microbit_fs import get_device_info, get_files
+from micropython_microbit_fs.filesystem import get_fs_start_address
 
 
 class TestGetFilesEmpty:

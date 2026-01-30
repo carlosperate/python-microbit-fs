@@ -1,14 +1,14 @@
 [project]
-name = "microbit-micropython-fs"
+name = "micropython-microbit-fs"
 version = "0.1.0"
-description = "A Python library to add and extract files from MicroPython Intel Hex files for micro:bit"
+description = "Library and cli app to add and extract files from MicroPython Hex files for micro:bit"
 readme = "README.md"
-license = { text = "MIT" }
-authors = [{ name = "Carlos Pereira Atencio" }]
+license = "MIT"
 requires-python = ">=3.9"
+authors = [{ name = "Carlos Pereira Atencio", email = "carlosperate@embeddedlog.com" },]
 keywords = ["microbit", "micropython", "filesystem", "intel-hex", "embedded"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -19,7 +19,6 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Embedded Systems",
-    "Topic :: System :: Filesystems",
 ]
 
 dependencies = [
@@ -40,12 +39,13 @@ dev = [
 ]
 
 [project.scripts]
-microbit-fs = "microbit_micropython_fs.cli:main"
+microbit-fs = "micropython_microbit_fs.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/carlosperate/python-microbit-fs"
-Repository = "https://github.com/carlosperate/python-microbit-fs"
+Repository = "https://github.com/carlosperate/python-microbit-fs.git"
 Issues = "https://github.com/carlosperate/python-microbit-fs/issues"
+Changelog = "https://github.com/carlosperate/python-microbit-fs/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["uv_build>=0.9.20,<0.10.0"]
@@ -74,7 +74,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["microbit_micropython_fs"]
+known-first-party = ["micropython_microbit_fs"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -95,7 +95,7 @@ warn_unused_ignores = false
 ignore_missing_imports = true
 
 [tool.coverage.run]
-source = ["src/microbit_micropython_fs"]
+source = ["src/micropython_microbit_fs"]
 branch = true
 
 [tool.coverage.report]

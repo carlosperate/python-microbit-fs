@@ -8,10 +8,10 @@ using the following folder structure:
     hexes/
         microbitv1/
             v{semver}/
-                micropython-microbit-v{semver}.hex
+                filename-v{semver}.hex
         microbitv2/
             v{semver}/
-                micropython-microbit-v{semver}.hex
+                filename-v{semver}.hex
 
 The micro:bit version and MicroPython version are determined by the folder path,
 not the filename.
@@ -31,7 +31,7 @@ from typing import Optional
 
 from packaging.version import Version
 
-from microbit_micropython_fs.exceptions import HexNotFoundError
+from micropython_microbit_fs.exceptions import HexNotFoundError
 
 # Regex patterns for device/version folders
 DEVICE_FOLDER_PATTERN = re.compile(r"^microbitv(\d+)$")
@@ -51,13 +51,11 @@ class MicroPythonHex:
 def _get_hexes_dir() -> Path:
     """Get the path to the bundled hexes directory."""
     # Use importlib.resources to access package data
-    return Path(str(resources.files("microbit_micropython_fs") / "hexes"))
+    return Path(str(resources.files("micropython_microbit_fs") / "hexes"))
 
 
 def list_bundled_versions(device_version: Optional[int] = None) -> dict[int, list[str]]:
     """List available MicroPython versions.
-
-    When ``device_version`` is ``None`` all devices are returned.
 
     Example::
         >>> list_bundled_versions()

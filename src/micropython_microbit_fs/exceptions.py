@@ -1,4 +1,4 @@
-"""Custom exceptions for the microbit-micropython-fs library."""
+"""Custom exceptions for the micropython-microbit-fs library."""
 
 
 class FilesystemError(Exception):

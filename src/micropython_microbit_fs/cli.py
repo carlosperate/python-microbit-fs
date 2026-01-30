@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Command-line interface for microbit-micropython-fs.
+Command-line interface for micropython-microbit-fs.
 
 This module provides CLI commands for working with micro:bit MicroPython
 filesystems in Intel Hex files.
@@ -13,9 +13,9 @@ from typing import Annotated, Optional
 
 from cyclopts import App, Parameter
 
-import microbit_micropython_fs as upyfs
-from microbit_micropython_fs.exceptions import HexNotFoundError
-from microbit_micropython_fs.hexes import (
+import micropython_microbit_fs as upyfs
+from micropython_microbit_fs.exceptions import HexNotFoundError
+from micropython_microbit_fs.hexes import (
     get_bundled_hex,
     list_bundled_versions,
 )

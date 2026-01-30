@@ -1,8 +1,8 @@
-# microbit-micropython-fs
+# micropython-microbit-fs
 
 [![Test](https://github.com/carlosperate/python-microbit-fs/actions/workflows/test.yml/badge.svg)](https://github.com/carlosperate/python-microbit-fs/actions/workflows/test.yml)
-[![PyPI versions](https://img.shields.io/pypi/pyversions/microbit-micropython-fs.svg)](https://pypi.org/project/ubittool/)
-[![PyPI - License](https://img.shields.io/pypi/l/microbit-micropython-fs.svg)](LICENSE)
+[![PyPI versions](https://img.shields.io/pypi/pyversions/micropython-microbit-fs.svg)](https://pypi.org/project/ubittool/)
+[![PyPI - License](https://img.shields.io/pypi/l/micropython-microbit-fs.svg)](LICENSE)
 
 A Python library and command line tool to inject and extract files from
 [MicroPython](https://microbit-micropython.readthedocs.io)
@@ -21,13 +21,13 @@ Intel Hex file for the [BBC micro:bit](https://microbit.org).
 To install this terminal tool we recommend using [uv](https://docs.astral.sh/uv/):
 
 ```
-uv tool install microbit-micropython-fs
+uv tool install micropython-microbit-fs
 ```
 
 It can also be installed via pip as a normal Python package:
 
 ```bash
-pip install microbit-micropython-fs
+pip install micropython-microbit-fs
 ```
 
 ## Command Line Interface
@@ -97,7 +97,7 @@ microbit-fs get micropython_with_files.hex --force
 ### Add files to a MicroPython hex
 
 ```python
-import microbit_micropython_fs as micropython
+import micropython_microbit_fs as microbit_fs
 
 # Read your MicroPython hex file
 with open("micropython.hex") as f:
@@ -105,12 +105,12 @@ with open("micropython.hex") as f:
 
 # Create files to add
 files = [
-    micropython.File.from_text("main.py", "from microbit import *\ndisplay.scroll('Hello!')"),
-    micropython.File.from_text("helper.py", "def greet(name):\n    return f'Hello {name}'"),
+    microbit_fs.File.from_text("main.py", "from microbit import *\ndisplay.scroll('Hello!')"),
+    microbit_fs.File.from_text("helper.py", "def greet(name):\n    return f'Hello {name}'"),
 ]
 
 # Add files and get new hex string
-new_hex = micropython.add_files(micropython_hex, files)
+new_hex = microbit_fs.add_files(micropython_hex, files)
 
 with open("micropython_with_files.hex", "w") as f:
     f.write(new_hex)
@@ -119,14 +119,14 @@ with open("micropython_with_files.hex", "w") as f:
 ### Get files from a MicroPython hex
 
 ```python
-import microbit_micropython_fs as micropython
+import micropython_microbit_fs as microbit_fs
 
 # Read hex file with embedded files
 with open("micropython_with_files.hex") as f:
     hex_data = f.read()
 
 # Get all files
-files = micropython.get_files(hex_data)
+files = microbit_fs.get_files(hex_data)
 
 for file in files:
     print(f"{file.name}: {file.size} bytes")
@@ -136,12 +136,12 @@ for file in files:
 ### Get device information
 
 ```python
-import microbit_micropython_fs as micropython
+import micropython_microbit_fs as microbit_fs
 
 with open("micropython.hex") as f:
     hex_data = f.read()
 
-info = micropython.get_device_info(hex_data)
+info = microbit_fs.get_device_info(hex_data)
 print(f"Device: micro:bit {info.device_version.value}")
 print(f"MicroPython: {info.micropython_version}")
 print(f"Filesystem size: {info.fs_size} bytes")
@@ -151,23 +151,23 @@ print(f"Flash page size: {info.flash_page_size} bytes")
 ### Use bundled MicroPython hex files
 
 ```python
-import microbit_micropython_fs as micropython
+import micropython_microbit_fs as microbit_fs
 
 # List available bundled versions (dict keyed by device)
-versions = micropython.list_bundled_versions()
+versions = microbit_fs.list_bundled_versions()
 # {1: ['1.1.1'], 2: ['2.1.2']}
 v1_versions = versions[1]
 v2_versions = versions[2]
 
 # Get the latest bundled hex for micro:bit V1
-hex_data = micropython.get_bundled_hex(1)
+hex_data = microbit_fs.get_bundled_hex(1)
 
 # Get a specific version
-hex_data = micropython.get_bundled_hex(2, "2.1.2")
+hex_data = microbit_fs.get_bundled_hex(2, "2.1.2")
 
 # Add files to the bundled hex
-files = [micropython.File.from_text("main.py", "from microbit import *")]
-new_hex = micropython.add_files(hex_data, files)
+files = [microbit_fs.File.from_text("main.py", "from microbit import *")]
+new_hex = microbit_fs.add_files(hex_data, files)
 
 with open("my_program.hex", "w") as f:
     f.write(new_hex)

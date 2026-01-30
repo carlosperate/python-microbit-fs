@@ -16,8 +16,8 @@ from typing import TypedDict
 import pytest
 from intelhex import IntelHex
 
-from microbit_micropython_fs import File, add_files, get_device_info, get_files
-from microbit_micropython_fs.filesystem import calculate_file_size
+from micropython_microbit_fs import File, add_files, get_device_info, get_files
+from micropython_microbit_fs.filesystem import calculate_file_size
 
 
 class _FileDataRequired(TypedDict):

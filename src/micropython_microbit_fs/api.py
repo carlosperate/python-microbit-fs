@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-Main public API for microbit-micropython-fs.
+Main public API for micropython-microbit-fs.
 
 This module provides the main functions for working with micro:bit MicroPython
 filesystems in Intel Hex files.
 """
 
-from microbit_micropython_fs.device_info import DeviceInfo, get_device_info_ih
-from microbit_micropython_fs.exceptions import InvalidFileError, InvalidHexError
-from microbit_micropython_fs.file import File
-from microbit_micropython_fs.filesystem import (
+from micropython_microbit_fs.device_info import DeviceInfo, get_device_info_ih
+from micropython_microbit_fs.exceptions import InvalidFileError, InvalidHexError
+from micropython_microbit_fs.file import File
+from micropython_microbit_fs.filesystem import (
     add_files_to_hex,
     read_files_from_hex,
 )
-from microbit_micropython_fs.hex_utils import hex_to_string, load_hex
+from micropython_microbit_fs.hex_utils import hex_to_string, load_hex
 
 
 def add_files(
@@ -37,7 +37,7 @@ def add_files(
 
     Example::
 
-        >>> import microbit_micropython_fs as micropython
+        >>> import micropython_microbit_fs as micropython
         >>> files = [micropython.File.from_text("main.py", "print('Hello!')")]
         >>> new_hex = micropython.add_files(micropython_hex, files)
     """
@@ -73,7 +73,7 @@ def get_files(hex_data: str) -> list[File]:
 
     Example::
 
-        >>> import microbit_micropython_fs as micropython
+        >>> import micropython_microbit_fs as micropython
         >>> files = micropython.get_files(hex_with_files)
         >>> for f in files:
         ...     print(f"{f.name}: {f.size} bytes")
@@ -102,7 +102,7 @@ def get_device_info(hex_data: str) -> DeviceInfo:
 
     Example::
 
-        >>> import microbit_micropython_fs as micropython
+        >>> import micropython_microbit_fs as micropython
         >>> info = micropython.get_device_info(micropython_hex)
         >>> print(f"FS Size: {info.fs_size} bytes")
         >>> print(f"MicroPython: {info.micropython_version}")

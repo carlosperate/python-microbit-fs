@@ -2,7 +2,7 @@
 
 import pytest
 
-from microbit_micropython_fs import File, InvalidFileError
+from micropython_microbit_fs import File, InvalidFileError
 
 
 class TestFileValidation:
@@ -30,7 +30,7 @@ class TestFilenameBoundaries:
 
     def test_filename_exactly_120_chars_succeeds(self, upy_v1_hex: str) -> None:
         """Filename of exactly 120 characters should succeed."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         name_120 = "a" * 116 + ".txt"  # 116 + 4 = 120
         assert len(name_120) == 120
@@ -44,7 +44,7 @@ class TestFilenameBoundaries:
 
     def test_filename_119_chars_succeeds(self, upy_v1_hex: str) -> None:
         """Filename of 119 characters should succeed."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         name_119 = "a" * 115 + ".txt"  # 115 + 4 = 119
         assert len(name_119) == 119
@@ -66,7 +66,7 @@ class TestFilenameBoundaries:
 
     def test_filename_single_char_succeeds(self, upy_v1_hex: str) -> None:
         """Single character filename should succeed."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text("x", "content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -81,7 +81,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_with_dots(self, upy_v1_hex: str) -> None:
         """Filename with multiple dots should work."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text("my.file.name.py", "content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -92,7 +92,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_starting_with_dot(self, upy_v1_hex: str) -> None:
         """Filename starting with dot (hidden file) should work."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text(".hidden", "secret content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -103,7 +103,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_with_numbers(self, upy_v1_hex: str) -> None:
         """Filename with numbers should work."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text("file123.py", "content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -114,7 +114,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_all_numbers(self, upy_v1_hex: str) -> None:
         """Filename that is all numbers should work."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text("12345", "content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -125,7 +125,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_with_spaces(self, upy_v1_hex: str) -> None:
         """Filename with spaces should work."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text("my file.py", "content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -136,7 +136,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_no_extension(self, upy_v1_hex: str) -> None:
         """Filename without extension should work."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [File.from_text("README", "content")]
         result_hex = add_files(upy_v1_hex, files)
@@ -147,7 +147,7 @@ class TestFilenameSpecialCases:
 
     def test_filename_case_sensitive(self, upy_v1_hex: str) -> None:
         """Filenames should be case-sensitive."""
-        from microbit_micropython_fs import add_files, get_files
+        from micropython_microbit_fs import add_files, get_files
 
         files = [
             File.from_text("File.py", "upper"),

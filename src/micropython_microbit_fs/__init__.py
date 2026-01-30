@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-microbit-micropython-fs: Inject and extract files from MicroPython Intel Hex files.
+micropython-microbit-fs: Inject and extract files from MicroPython Intel Hex files.
 
 This library provides a simple API for working with MicroPython filesystem
 embedded in Intel Hex files for the BBC micro:bit.
@@ -13,13 +13,13 @@ Main functions:
     - list_bundled_versions: List available bundled hex versions
 """
 
-from microbit_micropython_fs.api import (
+from micropython_microbit_fs.api import (
     add_files,
     get_device_info,
     get_files,
 )
-from microbit_micropython_fs.device_info import DeviceInfo, DeviceVersion
-from microbit_micropython_fs.exceptions import (
+from micropython_microbit_fs.device_info import DeviceInfo, DeviceVersion
+from micropython_microbit_fs.exceptions import (
     FilesystemError,
     HexNotFoundError,
     InvalidFileError,
@@ -27,8 +27,8 @@ from microbit_micropython_fs.exceptions import (
     NotMicroPythonError,
     StorageFullError,
 )
-from microbit_micropython_fs.file import File
-from microbit_micropython_fs.hexes import (
+from micropython_microbit_fs.file import File
+from micropython_microbit_fs.hexes import (
     MicroPythonHex,
     get_bundled_hex,
     list_bundled_versions,

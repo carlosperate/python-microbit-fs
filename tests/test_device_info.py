@@ -2,8 +2,8 @@
 
 import pytest
 
-from microbit_micropython_fs import DeviceVersion, get_device_info
-from microbit_micropython_fs.exceptions import InvalidHexError, NotMicroPythonError
+from micropython_microbit_fs import DeviceVersion, get_device_info
+from micropython_microbit_fs.exceptions import InvalidHexError, NotMicroPythonError
 
 
 class TestGetDeviceInfoV1:
