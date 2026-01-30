@@ -57,13 +57,21 @@ def list_files(hex_file: Path) -> None:
         print("No files found in filesystem.")
         return
 
-    total_size = 0
-    for file in files:
-        print(f"{file.name:40} {file.size:>8} bytes")
-        total_size += file.size
+    total_size = sum(file.size for file in files)
+    name_col_width = 40
+    size_col_width = 12
 
-    print(f"{'─' * 50}")
-    print(f"{'Total':40} {total_size:>8} bytes ({len(files)} files)")
+    print(f"\n{'File':<{name_col_width}} {'Size':>{size_col_width}}")
+    print(f"{'─' * name_col_width} {'─' * size_col_width}")
+    for file in files:
+        size_str = f"{file.size} bytes"
+        print(f"{file.name:<{name_col_width}} {size_str:>{size_col_width}}")
+
+    print(f"{'─' * name_col_width} {'─' * size_col_width}")
+    total_str = f"{total_size} bytes"
+    print(
+        f"{'Total (' + str(len(files)) + ' files)':<{name_col_width}} {total_str:>{size_col_width}}"
+    )
 
 
 @app.command
