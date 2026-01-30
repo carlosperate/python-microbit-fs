@@ -1,6 +1,6 @@
 [project]
 name = "micropython-microbit-fs"
-version = "0.1.0"
+version = "0.1.1"
 description = "Library and cli app to add and extract files from MicroPython Hex files for micro:bit"
 readme = "README.md"
 license = "MIT"
