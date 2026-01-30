@@ -96,16 +96,20 @@ def lint() -> None:
 
 
 @command
+def lint_fix() -> None:
+    """Run ruff linter with automatic fixes."""
+    run_module("ruff", ["check", "--fix"] + CHECK_PATHS)
+
+
+@command
 def format() -> None:
     """Run code formatters (ruff)."""
-    run_module("ruff", ["check", "--fix"] + CHECK_PATHS)
     run_module("ruff", ["format"] + CHECK_PATHS)
 
 
 @command
 def format_check() -> None:
     """Check code formatting without making changes."""
-    run_module("ruff", ["check"] + CHECK_PATHS)
     run_module("ruff", ["format", "--check", "--diff"] + CHECK_PATHS)
 
 
@@ -140,7 +144,7 @@ def check() -> None:
     """Run all checks (lint, typecheck, test)."""
     # Information about the environment
     print(f"Python {platform.python_version()}: {sys.executable}")
-    print(f"Site-packages: {site.getsitepackages()}")
+    print(f"Site-packages: {site.getsitepackages()}", flush=True)
     lint()
     typecheck()
     format_check()

@@ -1,7 +1,7 @@
 # micropython-microbit-fs
 
 [![Test](https://github.com/carlosperate/python-microbit-fs/actions/workflows/test.yml/badge.svg)](https://github.com/carlosperate/python-microbit-fs/actions/workflows/test.yml)
-[![PyPI versions](https://img.shields.io/pypi/pyversions/micropython-microbit-fs.svg)](https://pypi.org/project/ubittool/)
+[![PyPI versions](https://img.shields.io/pypi/pyversions/micropython-microbit-fs.svg)](https://pypi.org/project/micropython-microbit-fs/)
 [![PyPI - License](https://img.shields.io/pypi/l/micropython-microbit-fs.svg)](LICENSE)
 
 A Python library and command line tool to inject and extract files from
@@ -11,10 +11,10 @@ Intel Hex file for the [BBC micro:bit](https://microbit.org).
 ## Features
 
 - **Inject files** into a MicroPython hex file for flashing to micro:bit.
-- **Extract files** from an existing MicroPython hex file.
-- **Get device info** including filesystem size and MicroPython version.
+- **Extract files** from an existing micro:bit MicroPython hex file.
+- **Get device info** from hex, including filesystem size and MicroPython version.
 - **Command-line interface** for easy scripting and automation.
-- Supports both micro:bit V1 and V2 boards.
+- Includes the latest MicroPython releases for micro:bit V1 and V2 boards.
 
 ## Installation
 
@@ -40,13 +40,26 @@ the terminal.
 Display device information:
 
 ```bash
-microbit-fs info micropython.hex
+$ microbit-fs info micropython.hex
+
+Device: micro:bit V2
+MicroPython version: micro:bit v2.1.2+0697c6d on 2023-10-30; MicroPython v1.18 on 2023-10-30
+Flash page size: 4096 bytes
+Filesystem size: 20480 bytes
+Filesystem start: 0x0006D000
+Filesystem end: 0x00073000
 ```
 
 List files in a hex file:
 
 ```bash
-microbit-fs list micropython_with_files.hex
+$ microbit-fs list micropython_with_files.hex
+
+File                                             Size
+──────────────────────────────────────── ────────────
+main.py                                     183 bytes
+──────────────────────────────────────── ────────────
+Total (1 files)                             183 bytes
 ```
 
 Add files to a hex file:
@@ -72,7 +85,14 @@ microbit-fs add main.py --v2=2.1.2 --output output.hex
 List available bundled MicroPython versions:
 
 ```bash
-microbit-fs versions
+$ microbit-fs versions
+Bundled MicroPython hex files:
+
+micro:bit V1:
+  - 1.1.1
+
+micro:bit V2:
+  - 2.1.2
 ```
 
 Extract files from a hex file:
@@ -92,7 +112,7 @@ microbit-fs get micropython_with_files.hex --force
 ```
 
 
-## Quick Start
+## Library Quick Start
 
 ### Add files to a MicroPython hex
 
@@ -211,5 +231,5 @@ MIT License - see [LICENSE](LICENSE) for details.
   TypeScript library.
 - This project packs the files inside a micro:bit MicroPython hex, which
   can then be flashed to a micro:bit.
-  To read and write files from a running micro:bit device over USB,
-  the [microFs](https://github.com/ntoll/microfs) CLI tool can be used.
+  Alternatively, to read and write files from a running micro:bit device over
+  USB, the [microFs](https://github.com/ntoll/microfs) CLI tool can be used.
