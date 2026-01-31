@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://test.pypi.org/p/micropython-microbit-fs
+      url: https://pypi.org/p/micropython-microbit-fs
     permissions:
       id-token: write
       contents: write
@@ -40,5 +40,3 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
