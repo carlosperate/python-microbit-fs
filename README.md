@@ -2,7 +2,7 @@
 
 [![Test](https://github.com/carlosperate/python-microbit-fs/actions/workflows/test.yml/badge.svg)](https://github.com/carlosperate/python-microbit-fs/actions/workflows/test.yml)
 [![PyPI versions](https://img.shields.io/pypi/pyversions/micropython-microbit-fs.svg)](https://pypi.org/project/micropython-microbit-fs/)
-[![PyPI - License](https://img.shields.io/pypi/l/micropython-microbit-fs.svg)](LICENSE)
+[![PyPI - License](https://img.shields.io/pypi/l/micropython-microbit-fs.svg)](https://github.com/carlosperate/python-microbit-fs/blob/main/LICENSE)
 
 A Python library and command line tool to inject and extract files from
 [MicroPython](https://microbit-micropython.readthedocs.io)

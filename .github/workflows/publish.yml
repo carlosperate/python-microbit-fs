@@ -22,11 +22,22 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Set up Python ${{ matrix.python-version }}
-        run: uv python install ${{ matrix.python-version }}
-
-      - name: Install dependencies
+      - name: Set up Python 3.9 environment
         run: uv sync --all-extras --dev --python 3.9
+
+      - name: Verify version matches release tag
+        run: |
+          PY_PROJECT_VERSION=$(uv run --isolated --with=toml python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          PACKAGE_VERSION=$(uv run python -c "import micropython_microbit_fs as ubfs; print(ubfs.__version__)")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          echo "pyproject.toml version: $PY_PROJECT_VERSION"
+          echo "Package __version__:    $PACKAGE_VERSION"
+          echo "Git tag version:        $TAG_VERSION"
+          if [ "$PY_PROJECT_VERSION" != "$TAG_VERSION" ] || [ "$PACKAGE_VERSION" != "$TAG_VERSION" ] || [ "$PY_PROJECT_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Error: Version mismatch detected!"
+            exit 1
+          fi
+          echo "✓ All versions match: $TAG_VERSION"
 
       - name: Build package
         run: uv run make.py build

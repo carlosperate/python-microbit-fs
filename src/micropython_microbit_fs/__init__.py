@@ -34,7 +34,7 @@ from micropython_microbit_fs.hexes import (
     list_bundled_versions,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 
 __all__ = [
     # Main API functions

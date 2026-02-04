@@ -1,12 +1,12 @@
 [project]
 name = "micropython-microbit-fs"
-version = "0.1.1"
-description = "Library and cli app to add and extract files from MicroPython Hex files for micro:bit"
+version = "0.1.2"
+description = "Library and CLI app to add and extract files from MicroPython Hex files for the BBC micro:bit."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
 authors = [{ name = "Carlos Pereira Atencio", email = "carlosperate@embeddedlog.com" },]
-keywords = ["microbit", "micropython", "filesystem", "intel-hex", "embedded"]
+keywords = ["microbit", "micro:bit", "BBC micro:bit", "MicroPython", "Intel Hex"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
